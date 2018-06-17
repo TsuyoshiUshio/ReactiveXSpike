@@ -3,30 +3,21 @@ using System.Collections.Generic;
 
 namespace ReactiveSpike
 {
-
-    class PrintObserver : IObserver<int>
-    {
-        public void OnNext(int value)
-        {
-            Console.WriteLine($"OnNext({value}) called");
-        }
-        public void OnCompleted()
-        {
-            Console.WriteLine("OnCompleted called.");
-        }
-        public void OnError(Exception error)
-        {
-            Console.WriteLine($"OnError({error.Message}) called.");
-        }
-    }
     class Program
     {
         static void Main(string[] args)
         {
             var source = new NumberObservable();
 
-            var subscriber1 = source.Subscribe(new PrintObserver());
-            var subscriber2 = source.Subscribe(new PrintObserver());
+            var subscriber1 = source.Subscribe(
+                value => Console.WriteLine($"OnNext({value}) called."),
+                ex => Console.WriteLine($"OnError({ex.Message}) called."),
+                () => Console.WriteLine("OnCompleted() called."));
+
+            var subscriber2 = source.Subscribe(
+                value => Console.WriteLine($"OnNext({value}) called."),
+                ex => Console.WriteLine($"OnError({ex.Message}) called."),
+                () => Console.WriteLine("OnCompleted() called."));
 
             Console.WriteLine("## Execute(1) ");
             source.Execute(1);
@@ -39,7 +30,10 @@ namespace ReactiveSpike
             Console.WriteLine("## Execute(0)");
             source.Execute(0);
 
-            var subscriber3 = source.Subscribe(new PrintObserver());
+            var subscriber3 = source.Subscribe(
+                value => Console.WriteLine($"OnNext({value}) called."),
+            ex => Console.WriteLine($"OnError({ex.Message}) called."),
+                () => Console.WriteLine("OnCompleted() called."));
             Console.WriteLine("## Completed");
             source.Completed();
 
