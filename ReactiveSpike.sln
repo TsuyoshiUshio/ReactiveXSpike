@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27729.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveSpike", "ReactiveSpike\ReactiveSpike.csproj", "{B5BF3A36-7084-4D4C-80DC-05364B8826BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5BF3A36-7084-4D4C-80DC-05364B8826BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BF3A36-7084-4D4C-80DC-05364B8826BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BF3A36-7084-4D4C-80DC-05364B8826BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BF3A36-7084-4D4C-80DC-05364B8826BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF353E49-E004-4246-B2F0-145AD0EE32E7}
+	EndGlobalSection
+EndGlobal
