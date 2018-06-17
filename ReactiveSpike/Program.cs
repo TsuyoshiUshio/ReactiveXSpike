@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive.Subjects;
 
 namespace ReactiveSpike
 {
@@ -43,65 +44,30 @@ namespace ReactiveSpike
     
     class NumberObservable : IObservable<int>
     {
-        private List<IObserver<int>> observers = new List<IObserver<int>>();
+        private Subject<int> source = new Subject<int>();
 
         public void Execute(int value)
         {
             if (value == 0)
             {
-                foreach (var obs in observers)
-                {
-                    obs.OnError(new Exception("value is 0"));
-                }
-                this.observers.Clear();
+                this.source.OnError(new Exception("value is 0"));
+                this.source = new Subject<int>();
                 return;
             }
-            foreach (var obs in observers)
-            {
-                obs.OnNext(value);
-            }
+
+            this.source.OnNext(value);
         }
 
         public void Completed()
         {
-            foreach (var obs in observers)
-            {
-                obs.OnCompleted();
-            }
-            this.observers.Clear();
+            this.source.OnCompleted();
         }
 
         public IDisposable Subscribe(IObserver<int> observer)
         {
-            this.observers.Add(observer);
-            return new RemoveListDisposable(observers, observer);
+            return this.source.Subscribe(observer);
         }
 
-        private class RemoveListDisposable : IDisposable
-        {
-            private List<IObserver<int>> observers = new List<IObserver<int>>();
-            private IObserver<int> observer;
-
-            public RemoveListDisposable(List<IObserver<int>> observers, IObserver<int> observer)
-            {
-                this.observers = observers;
-                this.observer = observer;
-            }
-            public void Dispose()
-            {
-                if (this.observers == null)
-                {
-                    return;
-                }
-
-                if (observers.IndexOf(observer) != -1)
-                {
-                    this.observers.Remove(observer);
-                }
-
-                this.observers = null;
-                this.observer = null;
-            }
-        }
+    
     }
 }
