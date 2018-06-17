@@ -7,8 +7,7 @@ namespace FactoryMethod
     {
         static void Main(string[] args)
         {
-            var source = Observable.Range(1, 5);
-            source = source.Repeat(3);
+            var source = Observable.Generate(0, i => i < 10, i => ++i, i => i * i + 1);
 
             var subscription = source.Subscribe(
                 i => Console.WriteLine($"OnNext({i})"),
